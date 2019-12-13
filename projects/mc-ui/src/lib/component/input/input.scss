@@ -1,0 +1,11 @@
+@import "../../styles/vars";
+
+.mc-input {
+    width: 100%;
+    vertical-align: middle;
+    &::-webkit-input-placeholder {
+        font-weight: 600;
+        font-size: 14px;
+        opacity: 0.3;
+    }
+}

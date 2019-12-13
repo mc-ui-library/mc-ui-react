@@ -1,0 +1,20 @@
+.mc-field {
+    &--prefix, &--suffix {
+        position: absolute;
+    }
+    &--prefix {
+        left: 0;
+        top: 0;
+    }
+    &--suffix {
+        right: 0;
+        top: 0;
+    }
+
+    &.has-prefix {
+        padding-left: 25px;
+    }
+    &.has-suffix {
+        padding-right: 25px;
+    }
+}

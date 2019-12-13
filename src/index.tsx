@@ -1,23 +1,22 @@
-/**
- * @class ExampleComponent
- */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import "./index.scss";
+import Home from './home/home';
 
-import * as React from 'react'
+const NotFoundPage = () => (
+  <div className="mc-not-found">
+    404 Not Found: <Link to="/">Go Home </Link>
+  </div>
+);
 
-import styles from './styles.css'
+const routes = (
+  <BrowserRouter>
+    <Switch>
+      <Route path="" component={Home} exact={true} />
+      <Route component={NotFoundPage} />
+    </Switch>
+  </BrowserRouter>
+);
 
-export type Props = { text: string }
-
-export default class ExampleComponent extends React.Component<Props> {
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
-}
+ReactDOM.render(routes, document.getElementById("root"));
