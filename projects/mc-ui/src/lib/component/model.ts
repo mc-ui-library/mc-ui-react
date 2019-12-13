@@ -1,14 +1,4 @@
-// Props
-export interface BaseProps {
-  theme?: string | string[];
-  onAction: Function;
-}
-
-export interface ButtonProps extends BaseProps {
-  onClick: Function;
-}
-
-// Data Model
+// ************ Data Model ************
 export interface Column {
   field?: string; // field name;
   name?: string; // column name

@@ -1,31 +1,31 @@
-import React from 'react';
-import './button.scss';
-import './button.theme.scss';
-import {ButtonProps} from '../model';
+import React from "react";
+import "./button.scss";
+import { MCUIService } from "../../mc-ui.service";
 
-export default class Button extends React.Component < ButtonProps > {
-    constructor(props : ButtonProps) {
-        super(props);
-        this.handleClick = this
-            .handleClick
-            .bind(this);
-    }
+interface ButtonProps {
+  theme?: string | string[];
+  children: any;
+  type: "button" | "submit" | "reset";
+  onClick: Function;
+}
 
-    handleClick(e : React.MouseEvent < HTMLButtonElement >) {
-        this
-            .props
-            .onClick(e);
-    }
+export default class Button extends React.Component<ButtonProps> {
+  private service: MCUIService;
+  constructor(props: ButtonProps) {
+    super(props);
+    this.service = new MCUIService();
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-    render() {
-        const classNames = ["mc-button"];
-        if (this.props.theme) {
-            classNames.push(...this.props.theme);
-        }
-        return (
-            <button className={classNames.join(" ")} onClick={this.handleClick}>
-                {this.props.children}
-            </button>
-        );
-    }
+  handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    this.props.onClick(e);
+  }
+
+  render() {
+    return (
+      <button type={this.props.type || 'button'} className={this.service.util.dom.getClassName('button', this.props.theme)} onClick={this.handleClick}>
+        {this.props.children}
+      </button>
+    );
+  }
 }

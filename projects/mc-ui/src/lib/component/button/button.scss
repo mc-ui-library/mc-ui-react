@@ -1,8 +1,17 @@
 .mc-button {
-    &-icon {
-        border: 0;
-        background-color: transparent;
-        padding: 0;
-        margin: 0;
-    }
+  display: inline-block;
+  display: relative;
+  padding: 0;
+  line-height: 34px;
+  background: #fff;
+  -webkit-appearance: none;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
 }
