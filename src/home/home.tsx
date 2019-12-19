@@ -1,22 +1,15 @@
-import React from 'react';
-import HomeLeftMenu from './home-left-menu';
-import HomeHeader from './home-header';
-import './home.scss';
+import React from "react";
+import HomeHeader from "./home-header";
+import "./home.scss";
+import Example from "./example/example";
 
-type HomeProps = {};
+const Home: React.FC = () => (
+  <div className="mc-home">
+    <HomeHeader></HomeHeader>
+    <div className="home--body">
+      <Example />
+    </div>
+  </div>
+);
 
-type HomeState = {};
-
-export default class Home extends React.Component<HomeProps, HomeState> {
-    render() {
-        return (
-            <div className="mc-home">
-                <HomeLeftMenu />
-                <div className="mc-home--body">
-                <HomeHeader />
-                Dashboard Home!!
-                </div>
-            </div>
-        );
-    }
-}
+export default Home;

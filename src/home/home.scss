@@ -1,8 +1,7 @@
+@import "../css/vars";
 .mc-home {
-    height: 100%;
-    padding-left: 240px;
-    &--body {
-        padding: 25px;
-        padding-top: 85px;
-    }
+  @include container;
+  padding: 20px;
+  padding-top: 75px; // header
+  background-color: $c-bg;
 }

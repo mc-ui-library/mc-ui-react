@@ -1,25 +1,20 @@
-import React from 'react';
-import './home-header.scss';
-import {Field, Icon} from '../../shared';
+import React from "react";
+import "./home-header.scss";
 
-type Props = {};
+const HomeHeader: React.FC = () => {
+  return (
+    <div className="mc-home-header">
+      <div className="home-header--header">
+        <a href="/" className="home-header--header--logo">
+          <span className="home-header--header--logo home-header--header--logo--1">
+            MC
+          </span>
+          <span className="home-header--header--logo--2">UI</span>
+        </a>
+      </div>
+      <div className="home-header--body">List Component</div>
+    </div>
+  );
+};
 
-type State = {};
-
-export default class HomeHeader extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e: any) {}
-
-    render() {
-        return (
-            <div className="mc-home-header">
-                <Field name="search" placeholder="Search..." theme={['home-header']} onChange={this.handleChange} prefix={() => <Icon icon="search" theme={['field', 'home-header']} />} />
-            </div>
-        );
-    }
-}
+export default HomeHeader;
