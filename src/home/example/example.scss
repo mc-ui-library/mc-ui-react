@@ -1,0 +1,23 @@
+@import '../../css/vars';
+
+mc-example {
+  @include container;
+  background-color: $c-bg;
+  .example {
+    &--header {
+      padding: 5px 0 25px 0;
+    }
+    &--item {
+      @include card;
+      margin-bottom: 20px;
+      &--header {
+        padding-bottom: 20px;
+        h6 {
+          text-transform: uppercase;
+        }
+      }
+      &--body {
+      }
+    }
+  }
+}
