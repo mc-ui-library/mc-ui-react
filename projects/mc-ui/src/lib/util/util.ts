@@ -14,7 +14,7 @@ export class Util {
     this.data = new DataUtil();
   }
 
-  isEmpty(val) {
+  isEmpty(val: any) {
     return val === null || val === '' || val === undefined;
   }
 
@@ -50,7 +50,7 @@ export class Util {
     return location.protocol + '//' + location.hostname + ':' + location.port + '/';
   }
 
-  getFullUrl(childPath) {
+  getFullUrl(childPath: string) {
     const root = this.getRootUrl();
     if (childPath.charAt(0) === '/') {
       childPath = childPath.substr(1);
@@ -58,14 +58,14 @@ export class Util {
     return root + childPath;
   }
 
-  clone(o) {
+  clone(o: any): any {
     // skip the date object
     if (!o || typeof o !== 'object' || (o instanceof Date && !isNaN(o.valueOf()))) {
       return o;
     } else if (Array.isArray(o)) {
       return o.map(item => this.clone(item));
     } else {
-      return Object.keys(o).reduce((obj, key) => {
+      return Object.keys(o).reduce((obj: any, key) => {
         obj[key] = this.clone(o[key]);
         return obj;
       }, {});

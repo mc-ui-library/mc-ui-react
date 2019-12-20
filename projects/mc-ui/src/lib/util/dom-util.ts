@@ -65,10 +65,9 @@ export class DomUtil {
                 .parentElement
                 .removeChild(dom);
         }
-        dom = null;
     }
 
-    openUrl(url, target = "", fileName = "") {
+    openUrl(url: string, target = "", fileName = "") {
         let a = document.createElement("a");
         a.href = url;
         if (fileName) 
@@ -80,10 +79,9 @@ export class DomUtil {
             .append(a);
         a.click();
         a.remove();
-        a = null;
     }
 
-    exportFile(fileName, content, mimeType = "text/csv", charset = "utf-8") {
+    exportFile(fileName: string, content: string, mimeType = "text/csv", charset = "utf-8") {
         const blob = new Blob([content], {type: `type:${mimeType};charset=${charset};`});
         if (navigator.msSaveBlob) {
             navigator.msSaveBlob(blob, fileName);
@@ -92,7 +90,7 @@ export class DomUtil {
         }
     }
 
-    getClassName(componentName, theme : string | string[], classNames : string[] = []) {
+    getClassName(componentName: string, theme : string | string[], classNames : string[] = []) {
         const cls = [];
         cls.push("mc-" + componentName.toLowerCase());
         if (theme) {
