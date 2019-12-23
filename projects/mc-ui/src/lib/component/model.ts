@@ -14,3 +14,11 @@ export interface ScrollData {
   start: number;
   rowCount: number;
 }
+
+export interface Action {
+  target: any; // container el
+  type: string;
+  event?: any; // for dom event
+  value?: any;
+  oldValue?: any;
+}
