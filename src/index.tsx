@@ -1,8 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Home from './home/home';
-import './css/main.scss';
-import './css/icon.scss';
-import './css/theme.scss';
+/**
+ * @class ExampleComponent
+ */
 
-ReactDOM.render(<Home />, document.getElementById("mc-root"));
+import * as React from 'react'
+
+import styles from './styles.css'
+
+export type Props = { text: string }
+
+export default class ExampleComponent extends React.Component<Props> {
+  render() {
+    const {
+      text
+    } = this.props
+
+    return (
+      <div className={styles.test}>
+        Example Component: {text}
+      </div>
+    )
+  }
+}
