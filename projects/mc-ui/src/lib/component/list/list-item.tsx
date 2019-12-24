@@ -1,89 +1,106 @@
 import React from 'react';
-import './list.scss';
+import './list-item.scss';
 import { Action } from '../model';
 import { getEl } from '../../util/util';
 import { ButtonDelete } from '../button/button-delete';
 
 interface ListItemProps {
   theme?: string[]; // theme class
+  height: string;
+  lineHeight: string;
   data: any;
-  idField: 'id';
-  nameField: 'name';
+  idField: string;
+  nameField: string;
   hasCheckBox: boolean;
   hasDeleteButton: boolean;
   selected: boolean;
-  tpl?: (data: any) => void;
+  horizontal: boolean;
+  isScrollPageItem: boolean;
+  isFirstPageItem: boolean;
+  isLastPageItem: boolean;
+  tpl: (data: any) => void;
   onAction: (action: Action) => void;
 }
 
 export const ListItem = ({
   theme,
   data,
+  height,
+  lineHeight,
   idField,
   nameField,
   hasCheckBox,
   hasDeleteButton,
   selected,
+  horizontal,
+  isScrollPageItem,
+  isLastPageItem,
+  isFirstPageItem,
   tpl,
   onAction,
 }: ListItemProps) => {
-  // init ref
+  // ***** init ref and hooks *****
   const elRef = React.useRef<HTMLDivElement>(null);
 
-  // init className
-  const cls = ['mc-list-item'];
-  if (theme) {
-    cls.push(...theme);
-  }
+  // ***** init className and style *****
+  const cls: string[] = ['mc-list-item'];
   if (selected) {
     cls.push('selected');
   }
+  if (horizontal) {
+    cls.push('horizontal');
+  }
+  if (isScrollPageItem) {
+    cls.push('is-scroll-page-item');
+  }
+  if (isFirstPageItem) {
+    cls.push('is-first-page-item');
+  }
+  if (isLastPageItem) {
+    cls.push('is-last-page-item');
+  }
+  // last should be theme class, since it can override the style.
+  if (theme) {
+    cls.push(...theme);
+  }
 
-  // handle event
+  const style: any = {
+    height: height,
+    lineHeight: lineHeight 
+  };
+
+  // ***** handle event *****
+  /**
+   In this case, we just change the class by dom.classList. because if it is changed by the parent component with props, the parent needs to update its state and search the child component for update it and update the props for a child. and the child needs to be updated. It needs few Oxn search and rerender a child. It is inefficient and it is not good for the performance.
+   * @param e 
+   */
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const el = getEl<HTMLDivElement>(elRef);
     const selected = el.classList.contains('selected');
-    let checkboxEl: HTMLInputElement | null = null;
-    if (hasCheckBox) {
-      const dom = el.querySelector('.list-item--checkbox');
-      if (dom) {
-        checkboxEl = dom as HTMLInputElement;
-      }
-    }
     if (selected) {
       el.classList.remove('selected');
-      if (checkboxEl) {
-        checkboxEl.checked = false;
-      }
     } else {
       el.classList.add('selected');
-      if (checkboxEl) {
-        checkboxEl.checked = true;
-      }
     }
     onAction({
-      target: el,
       type: selected ? 'unselect' : 'select',
-      value: data,
-      event: e
+      value: data
     });
   }
 
-  const handleButtonDeleteAction = (e: Action) => {
+  const handleButtonDeleteAction = () => {
     onAction({
-      target: getEl<HTMLDivElement>(elRef),
       type: 'delete',
-      value: data,
-      event: e
+      value: data
     });
   };
 
-  // renderer
+  // ***** render *****
   const renderCheckbox = () => {
     if (hasCheckBox) {
       return (
-        <div className="list-item--header"><input type="checkbox" className="list-item--checkbox" /></div>
+        <div className="list-item--header"><input type="checkbox" className="list-item--checkbox" checked={selected} /></div>
       );
     }
     return '';
@@ -98,10 +115,18 @@ export const ListItem = ({
 
   const renderDeleteButton = () => {
     if (hasDeleteButton) {
-      return (<ButtonDelete onAction={handleButtonDeleteAction}></ButtonDelete>)
+      return (<ButtonDelete onAction={handleButtonDeleteAction}></ButtonDelete>);
     }
     return '';
   };
 
-  return (<div ref={elRef} className={cls.join(' ')} data-id={data[idField]} onClick={handleClick}>{renderCheckbox()}{renderContent()}{renderDeleteButton()}</div>);
+  return (<div ref={elRef} className={cls.join(' ')} style={style} data-id={data[idField]} onClick={handleClick}>{renderCheckbox()}{renderContent()}{renderDeleteButton()}</div>);
+};
+
+// ***** default props *****
+ListItem.defaultProps = {
+  idField: 'id',
+  nameField: 'name',
+  height: '45px',
+  lineHeight: '43px'
 };

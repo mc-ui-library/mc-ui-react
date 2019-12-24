@@ -16,9 +16,10 @@ export interface ScrollData {
 }
 
 export interface Action {
-  target: any; // container el
+  target?: any; // container el
   type: string;
   event?: any; // for dom event
   value?: any;
+  values?: any[];
   oldValue?: any;
 }
