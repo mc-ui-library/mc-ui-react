@@ -3,9 +3,9 @@ import HomeHeader from "./home-header";
 import "./home.scss";
 import Example from "./example/example";
 
-const Home: React.FC = () => (
+const Home = () => (
   <div className="mc-home">
-    <HomeHeader></HomeHeader>
+    <HomeHeader />
     <div className="home--body">
       <Example />
     </div>

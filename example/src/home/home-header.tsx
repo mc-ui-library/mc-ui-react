@@ -1,7 +1,7 @@
 import React from "react";
 import "./home-header.scss";
 
-const HomeHeader: React.FC = () => {
+const HomeHeader = () => {
   return (
     <div className="mc-home-header">
       <div className="home-header--header">

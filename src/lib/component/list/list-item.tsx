@@ -4,7 +4,7 @@ import { Action } from '../model';
 import { getEl } from '../../util/util';
 import { ButtonDelete } from '../button/button-delete';
 
-interface ListItemProps {
+export interface ListItemProps {
   theme?: string[]; // theme class
   height: string;
   lineHeight: string;
@@ -45,7 +45,7 @@ export const ListItem = ({
   // ***** handle event *****
   /**
    In this case, we just change the class by dom.classList. because if it is changed by the parent component with props, the parent needs to update its state and search the child component for update it and update the props for a child. and the child needs to be updated. It needs few Oxn search and rerender a child. It is inefficient and it is not good for the performance.
-   * @param e 
+   * @param e
    */
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -56,17 +56,22 @@ export const ListItem = ({
     } else {
       el.classList.add('selected');
     }
-    onAction({
-      type: selected ? 'unselect' : 'select',
-      value: data
-    });
+    if (onAction) {
+      onAction({
+        type: selected ? 'unselect' : 'select',
+        value: data
+      });
+    }
+
   }
 
   const handleButtonDeleteAction = () => {
-    onAction({
-      type: 'delete',
-      value: data
-    });
+    if (onAction) {
+      onAction({
+        type: 'delete',
+        value: data
+      });
+    }
   };
 
   // ***** init className and style *****
@@ -93,7 +98,7 @@ export const ListItem = ({
 
   const style: any = {
     height: height,
-    lineHeight: lineHeight 
+    lineHeight: lineHeight
   };
 
   // ***** render *****
