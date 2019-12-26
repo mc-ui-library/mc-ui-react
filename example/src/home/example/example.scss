@@ -1,6 +1,6 @@
 @import '../../css/vars';
 
-mc-example {
+.mc-example {
   @include container;
   background-color: $c-bg;
   .example {

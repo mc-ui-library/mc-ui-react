@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './list-basic.scss';
 import { Action } from '../model';
 import { ListItem } from './list-item';
+import { addThemeCls } from '../../util/util';
 
 export interface ListBasicProps {
   theme?: string[]; // theme class
@@ -39,7 +40,6 @@ export const ListBasic = ({
   onAction,
 }: ListBasicProps) => {
   // ***** init and hooks *****
-  const [items, setItems] = useState(data);
   let rendered = false;
   // useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined
   useEffect(() => {
@@ -73,8 +73,9 @@ export const ListBasic = ({
     });
   }
   // create a map for quick searching a selected item
-  const selectedItemsMap = new Map();
+  let selectedItemsMap = new Map();
   selectedItems.forEach((item: any) => selectedItemsMap.set('' + item[idField], item));
+  const [selectedItemsMapState, setSelectedItemsMapState] = useState(selectedItemsMap);
 
   const getSelectedItems = () => {
     const items: any[] = [];
@@ -86,16 +87,26 @@ export const ListBasic = ({
   const handleListItemAction = (e: Action) => {
     switch (e.type) {
       case 'select':
+        if (!multiSelect) {
+          selectedItemsMap = new Map();
+        }
         selectedItemsMap.set(e.value[idField] + '', e.value);
+        // render
+        setSelectedItemsMapState(selectedItemsMap);
         break;
       case 'unselect':
-        selectedItemsMap.delete(e.value[idField] + '');
+        if (multiSelect) {
+          selectedItemsMap.delete(e.value[idField] + '');
+          // render
+          setSelectedItemsMapState(selectedItemsMap);
+        }
         break;
       case 'delete':
         selectedItemsMap.delete(e.value[idField] + '');
         const id = e.value[idField];
-        // rerender
-        setItems(items.filter((item: any) => item[idField] !== id));
+        data = data.filter((item: any) => item[idField] !== id);
+        // render
+        setSelectedItemsMapState(selectedItemsMap);
         break;
     }
     if (onAction) {
@@ -109,9 +120,7 @@ export const ListBasic = ({
 
   // ***** init className and style *****
   const cls = ['mc-list-basic'];
-  if (theme) {
-    cls.push(...theme);
-  }
+
   if (isScrollPage) {
     cls.push('is-scroll-page');
   }
@@ -119,8 +128,9 @@ export const ListBasic = ({
     cls.push('horizontal');
   }
 
+  addThemeCls(cls, theme);
   // ***** render *****
-  const renderItems = () => data.map((item: any) => <ListItem key={item[idField]} data={item} height={horizontal ? '100%' : rowHeight + 'px'} lineHeight={horizontal ? horizontalLineHeight : (rowHeight - 2) + 'px'} tpl={itemTpl} idField={idField} nameField={nameField} hasCheckBox={multiSelect} hasDeleteButton={hasDelete} selected={selectedItemsMap.has('' + item[idField])} horizontal={horizontal} isScrollPageItem={isScrollPage} isFirstPageItem={isFirstPage} isLastPageItem={isLastPage} theme={item.theme} onAction={handleListItemAction} />);
+  const renderItems = () => data.map((item: any) => <ListItem key={item[idField]} data={item} height={horizontal ? '100%' : rowHeight + 'px'} lineHeight={horizontal ? horizontalLineHeight : (rowHeight - 2) + 'px'} tpl={itemTpl} idField={idField} nameField={nameField} hasCheckBox={multiSelect} hasDeleteButton={hasDelete} selected={selectedItemsMapState.has('' + item[idField])} horizontal={horizontal} isScrollPageItem={isScrollPage} isFirstPageItem={isFirstPage} isLastPageItem={isLastPage} theme={item.theme} onAction={handleListItemAction} />);
 
   return (
     <div className={cls.join(' ')}>{renderItems()}</div>

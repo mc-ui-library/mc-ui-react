@@ -1,7 +1,7 @@
 import React from 'react';
 import './list-item.scss';
 import { Action } from '../model';
-import { getEl } from '../../util/util';
+import { getEl, addThemeCls } from '../../util/util';
 import { ButtonDelete } from '../button/button-delete';
 
 export interface ListItemProps {
@@ -51,11 +51,6 @@ export const ListItem = ({
     e.stopPropagation();
     const el = getEl<HTMLDivElement>(elRef);
     const selected = el.classList.contains('selected');
-    if (selected) {
-      el.classList.remove('selected');
-    } else {
-      el.classList.add('selected');
-    }
     if (onAction) {
       onAction({
         type: selected ? 'unselect' : 'select',
@@ -92,9 +87,7 @@ export const ListItem = ({
     cls.push('is-last-page-item');
   }
   // last should be theme class, since it can override the style.
-  if (theme) {
-    cls.push(...theme);
-  }
+  addThemeCls(cls, theme);
 
   const style: any = {
     height: height,

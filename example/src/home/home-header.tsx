@@ -12,7 +12,7 @@ const HomeHeader = () => {
           <span className="home-header--header--logo--2">UI</span>
         </a>
       </div>
-      <div className="home-header--body">List Component</div>
+      <div className="home-header--body">Component Examples</div>
     </div>
   );
 };

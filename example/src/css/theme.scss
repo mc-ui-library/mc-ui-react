@@ -1,5 +1,5 @@
 @import './vars';
-mc-button {
+.mc-button {
   &.button {
     &-signin {
       width: 100%;
@@ -18,7 +18,7 @@ mc-button {
   }
 }
 
-mc-icon {
+.mc-icon {
   &.icon {
     &-button {
       line-height: 58px;
@@ -34,7 +34,7 @@ mc-icon {
   }
 }
 
-mc-list-item {
+.mc-list-item {
   &.horizontal {
     &.selected {
       margin-top: -1px;
@@ -53,7 +53,8 @@ mc-list-item {
         background-color: $c-orange;
       }
       &.selected {
-        border-bottom: 1px solid transparent;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.7);
       }
     }
   }
