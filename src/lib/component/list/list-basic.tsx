@@ -13,11 +13,13 @@ export interface ListBasicProps {
   multiSelect: boolean;
   selectedItems: any[];
   hasDelete: boolean;
+  horizontal: boolean;
+
+  // for infinity scroll list
   isLastPage: boolean;
   isFirstPage: boolean;
   isScrollPage: boolean;
-  horizontal: boolean;
-  horizontalLineHeight: string;
+
   itemTpl: (data: any) => void;
   onAction: (action: Action) => void;
 };
@@ -31,11 +33,11 @@ export const ListBasic = ({
   multiSelect,
   selectedItems,
   hasDelete,
+  horizontal,
   isLastPage,
   isFirstPage,
   isScrollPage,
-  horizontal,
-  horizontalLineHeight,
+
   itemTpl,
   onAction,
 }: ListBasicProps) => {
@@ -130,7 +132,7 @@ export const ListBasic = ({
 
   addThemeCls(cls, theme);
   // ***** render *****
-  const renderItems = () => data.map((item: any) => <ListItem key={item[idField]} data={item} height={horizontal ? '100%' : rowHeight + 'px'} lineHeight={horizontal ? horizontalLineHeight : (rowHeight - 2) + 'px'} tpl={itemTpl} idField={idField} nameField={nameField} hasCheckBox={multiSelect} hasDeleteButton={hasDelete} selected={selectedItemsMapState.has('' + item[idField])} horizontal={horizontal} isScrollPageItem={isScrollPage} isFirstPageItem={isFirstPage} isLastPageItem={isLastPage} theme={item.theme} onAction={handleListItemAction} />);
+  const renderItems = () => data.map((item: any) => <ListItem key={item[idField]} data={item} height={rowHeight + 'px'} lineHeight={(rowHeight - 2) + 'px'} tpl={itemTpl} idField={idField} nameField={nameField} hasCheckBox={multiSelect} hasDeleteButton={hasDelete} selected={selectedItemsMapState.has('' + item[idField])} horizontal={horizontal} isScrollPageItem={isScrollPage} isFirstPageItem={isFirstPage} isLastPageItem={isLastPage} theme={item.theme} onAction={handleListItemAction} />);
 
   return (
     <div className={cls.join(' ')}>{renderItems()}</div>
@@ -149,7 +151,6 @@ ListBasic.defaultProps = {
   isFirstPage: false,
   isScrollPage: false,
   horizontal: false,
-  horizontalLineHeight: '43px',
   itemTpl: null,
   onAction: null
 };

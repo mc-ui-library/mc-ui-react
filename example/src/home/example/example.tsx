@@ -29,7 +29,7 @@ const Example = () => {
         </div>
         <div className="example--item--body">
           <ListBasic data={listBasicToggleData} selectedItems={[listBasicToggleData[0]]} horizontal={true} />
-          <ListBasic data={listBasicTagsData} horizontal={true} horizontalLineHeight="18px"/>
+          <ListBasic data={listBasicTagsData} rowHeight={20} horizontal={true}/>
         </div>
       </div>
     </div>

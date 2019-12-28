@@ -33,9 +33,11 @@ export const ListItem = ({
   hasDeleteButton,
   selected,
   horizontal,
+  // for infinity scroll
   isScrollPageItem,
   isLastPageItem,
   isFirstPageItem,
+
   tpl,
   onAction,
 }: ListItemProps) => {
@@ -43,10 +45,6 @@ export const ListItem = ({
   const elRef = React.useRef<HTMLDivElement>(null);
 
   // ***** handle event *****
-  /**
-   In this case, we just change the class by dom.classList. because if it is changed by the parent component with props, the parent needs to update its state and search the child component for update it and update the props for a child. and the child needs to be updated. It needs few Oxn search and rerender a child. It is inefficient and it is not good for the performance.
-   * @param e
-   */
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const el = getEl<HTMLDivElement>(elRef);
@@ -57,8 +55,7 @@ export const ListItem = ({
         value: data
       });
     }
-
-  }
+  };
 
   const handleButtonDeleteAction = () => {
     if (onAction) {

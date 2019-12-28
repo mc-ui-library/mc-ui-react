@@ -37,7 +37,6 @@
 .mc-list-item {
   &.horizontal {
     &.selected {
-      margin-top: -1px;
       border-bottom: 2px solid $c-gray-bbb;
     }
   }
