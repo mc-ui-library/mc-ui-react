@@ -1,0 +1,23 @@
+.mc-scroll {
+  display: block;
+  position: relative;
+  height: 100%;
+  .scroll {
+    overflow-y: auto;
+    height: 100%;
+    &--content {
+      &--page1, &--page2 {
+        position: absolute;
+        width: 100%;
+        left: 0;
+      }
+    }
+    &--empty {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

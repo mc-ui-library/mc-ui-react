@@ -22,4 +22,5 @@ export interface Action {
   value?: any;
   values?: any[];
   oldValue?: any;
+  index?: number;
 }

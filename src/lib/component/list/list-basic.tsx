@@ -20,7 +20,7 @@ export interface ListBasicProps {
   isFirstPage: boolean;
   isScrollPage: boolean;
 
-  itemTpl: (data: any) => void;
+  itemTpl: any;
   onAction: (action: Action) => void;
 };
 
